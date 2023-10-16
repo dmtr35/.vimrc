@@ -63,6 +63,7 @@ set autowrite          " Automatically save before commands like :next and :make
 "set nohlsearch        " подсветка поиска
 set hls is             " подсветка вкл
 set number
+set mouse=
 "set relativenumber
 set tabstop=2          " a tab is four spaces
 set softtabstop=4      " when hitting <BS>, pretend like a tab is removed, even if spaces
