@@ -34,11 +34,11 @@ endif
 
 " Put these in an autocmd group, so that we can delete them easily.
 augroup vimrcEx
-  au!
+  au! 
 
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-augroup END
+augroup END 
 
 " Add optional packages.
 "
@@ -52,39 +52,52 @@ endif
 
 scriptencoding utf-8
 set encoding=utf-8
-set termguicolors
-set nocompatible       " Forget old vi
-set showcmd            " Show (partial) command in status line.
-set showmatch          " Show matching brackets.
-set ignorecase         " Do case insensitive matching
-set smartcase          " Do smart case matching
-set incsearch          " Incremental search
-set autowrite          " Automatically save before commands like :next and :make
-"set nohlsearch        " подсветка поиска
-set hls is             " подсветка вкл
-set number
-set mouse=
-"set relativenumber
-set tabstop=2          " a tab is four spaces
-set softtabstop=4      " when hitting <BS>, pretend like a tab is removed, even if spaces
-set noexpandtab        " don't expand tabs to spaces by default
-set shiftwidth=2       " number of spaces to use for autoindenting
-set shiftround         " use multiple of shiftwidth when indenting with '<' and '>'
-set backspace=indent,eol,start  " allow backspacing over everything in insert mode
-set autoindent         " always set autoindenting on
-set copyindent         " copy the previous indentation on autoindenting
-set nolist
+set termguicolors               " Включает поддержку 24-битных цветов в терминале.
+set nocompatible                " режим совместимости с классическим Vi
+set showcmd                     " Показывает вводимые команды в строке статуса.
+set showmatch                   " Подсвечивает парные скобки при наборе.
+set ignorecase                  " Игнорирует регистр при поиске 
+set smartcase                   " учитывает регистр, если в поиске есть хотя бы одна заглавная буква
+set incsearch                   " Поиск обновляется по мере ввода строки
+set autowrite                   " Автоматически сохраняет файл перед выполнением команд, таких как :next или :make
+"set nohlsearch                 " подсветка поиска
+set hls is                      " Включает подсветку поиска.
+"set number                     " Номерацию строк
+set mouse=                      " отключает управление мышью.
+"set relativenumber             " относительные номера строк
+set tabstop=2                   " Табуляция отображается как 2 пробела.
+set softtabstop=4               " При нажатии Backspace удаляется 4 пробела
+set noexpandtab                 " Табуляция не заменяется пробелами.
+set shiftwidth=2                " Количество пробелов для отступов — 2.
+set shiftround                  " Выравнивает отступы по кратным значениям shiftwidth
+set backspace=indent,eol,start  " Разрешает удаление отступов, конца строки и начальных символов в режиме вставки.
+set autoindent                  " Включает автоматическое добавление отступов
+set copyindent                  " Копирует отступы предыдущей строки.
+set nolist                      " По умолчанию скрывает специальные символы.
 set listchars=eol:$,tab:.\ ,trail:.,extends:>,precedes:<,nbsp:_
 highlight SpecialKey term=standout ctermfg=darkgray guifg=darkgray
 nnoremap <F3> :set list! list?<CR>
-let mapleader = " " " map leader to Space
-set pastetoggle=<F2>
+let mapleader = " "             " Устанавливает пробел как лидер-клавишу
+set pastetoggle=<F2>            " Переключает режим вставки (paste), чтобы корректно вставлять текст без форматирования.
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
-syntax enable
-filetype on                  " required
+"syntax enable                  " Включает подсветку синтаксиса.  
+filetype on                     " Включает автоматическое определение типа файла
 
-" soft wrap
-set wrap
-set linebreak
+" soft wrap                     
+set wrap                        " Включает перенос строк.
+set linebreak                   " Переносы происходят только на пробелах, чтобы текст выглядел аккуратнее.
+
+"call plug#begin('~/.vim/plugged')
+"Plug 'vim-scripts/hexman.vim'
+"call plug#end()
+
+" Назначить Ctrl + a для переключения на следующий буфер
+nnoremap <C-a> :bnext<CR>
+" Назначить Ctrl + q для переключения на предыдущий буфер
+nnoremap <C-q> :bprev<CR>
+
+" Назначить alt+up, alt+down -> удалить строку, вставить выше, ниже
+nnoremap <silent> <A-Up> :if line('.') > 1 \| let l = line('.') \| let c = col('.') \| if line('.') == line('$') \| execute "normal! ddP" \| else \| execute "normal! ddkP" \| endif \| call cursor(l - 1, c) \| endif<CR>
+nnoremap <silent> <A-Down> ddp 
 
