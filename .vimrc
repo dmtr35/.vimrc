@@ -34,11 +34,11 @@ endif
 
 " Put these in an autocmd group, so that we can delete them easily.
 augroup vimrcEx
-  au! 
+  au!
 
   " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-augroup END 
+augroup END
 
 " Add optional packages.
 "
@@ -52,45 +52,41 @@ endif
 
 scriptencoding utf-8
 set encoding=utf-8
-set termguicolors               " Включает поддержку 24-битных цветов в терминале.
-set nocompatible                " режим совместимости с классическим Vi
-set showcmd                     " Показывает вводимые команды в строке статуса.
-set showmatch                   " Подсвечивает парные скобки при наборе.
-set ignorecase                  " Игнорирует регистр при поиске 
-set smartcase                   " учитывает регистр, если в поиске есть хотя бы одна заглавная буква
-set incsearch                   " Поиск обновляется по мере ввода строки
-set autowrite                   " Автоматически сохраняет файл перед выполнением команд, таких как :next или :make
-"set nohlsearch                 " подсветка поиска
-set hls is                      " Включает подсветку поиска.
-"set number                     " Номерацию строк
-set mouse=                      " отключает управление мышью.
-"set relativenumber             " относительные номера строк
-set tabstop=2                   " Табуляция отображается как 2 пробела.
-set softtabstop=4               " При нажатии Backspace удаляется 4 пробела
-set noexpandtab                 " Табуляция не заменяется пробелами.
-set shiftwidth=2                " Количество пробелов для отступов — 2.
-set shiftround                  " Выравнивает отступы по кратным значениям shiftwidth
+set termguicolors								" Включает поддержку 24-битных цветов в терминале.
+set nocompatible								" режим совместимости с классическим Vi
+set showcmd											"	Показывает вводимые команды в строке статуса.
+set showmatch										" Подсвечивает парные скобки при наборе.
+set ignorecase									" Игнорирует регистр при поиске 
+set smartcase										" учитывает регистр, если в поиске есть хотя бы одна заглавная буква
+set incsearch										" Поиск обновляется по мере ввода строки
+set autowrite										" Автоматически сохраняет файл перед выполнением команд, таких как :next или :make
+"set nohlsearch									" подсветка поиска
+set hls is											" Включает подсветку поиска.
+"set number											" Номерацию строк
+set mouse=											" отключает управление мышью.
+"set relativenumber							" относительные номера строк
+set tabstop=2										" Табуляция отображается как 2 пробела.
+set softtabstop=4								" При нажатии Backspace удаляется 4 пробела
+set noexpandtab									" Табуляция не заменяется пробелами.
+set shiftwidth=2								" Количество пробелов для отступов — 2.
+set shiftround									" Выравнивает отступы по кратным значениям shiftwidth
 set backspace=indent,eol,start  " Разрешает удаление отступов, конца строки и начальных символов в режиме вставки.
-set autoindent                  " Включает автоматическое добавление отступов
-set copyindent                  " Копирует отступы предыдущей строки.
-set nolist                      " По умолчанию скрывает специальные символы.
+set autoindent									" Включает автоматическое добавление отступов
+set copyindent									" Копирует отступы предыдущей строки.
+set nolist											" По умолчанию скрывает специальные символы.
 set listchars=eol:$,tab:.\ ,trail:.,extends:>,precedes:<,nbsp:_
 highlight SpecialKey term=standout ctermfg=darkgray guifg=darkgray
 nnoremap <F3> :set list! list?<CR>
-let mapleader = " "             " Устанавливает пробел как лидер-клавишу
-set pastetoggle=<F2>            " Переключает режим вставки (paste), чтобы корректно вставлять текст без форматирования.
+let mapleader = " "							" Устанавливает пробел как лидер-клавишу
+set pastetoggle=<F2>						" Переключает режим вставки (paste), чтобы корректно вставлять текст без форматирования.
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
-"syntax enable                  " Включает подсветку синтаксиса.  
-filetype on                     " Включает автоматическое определение типа файла
+"syntax enable									" Включает подсветку синтаксиса.	
+filetype on											" Включает автоматическое определение типа файла
 
-" soft wrap                     
-set wrap                        " Включает перенос строк.
-set linebreak                   " Переносы происходят только на пробелах, чтобы текст выглядел аккуратнее.
-
-"call plug#begin('~/.vim/plugged')
-"Plug 'vim-scripts/hexman.vim'
-"call plug#end()
+" soft wrap											
+set wrap												" Включает перенос строк.
+set linebreak										" Переносы происходят только на пробелах, чтобы текст выглядел аккуратнее.
 
 " Назначить Ctrl + a для переключения на следующий буфер
 nnoremap <C-a> :bnext<CR>
@@ -99,5 +95,43 @@ nnoremap <C-q> :bprev<CR>
 
 " Назначить alt+up, alt+down -> удалить строку, вставить выше, ниже
 nnoremap <silent> <A-Up> :if line('.') > 1 \| let l = line('.') \| let c = col('.') \| if line('.') == line('$') \| execute "normal! ddP" \| else \| execute "normal! ddkP" \| endif \| call cursor(l - 1, c) \| endif<CR>
-nnoremap <silent> <A-Down> ddp 
+nnoremap <silent> <A-Down> ddp
 
+" ========================================================================
+" plugins
+call plug#begin('~/.vim/plugged')
+" Plug 'vim-scripts/hexman.vim'
+Plug 'puremourning/vimspector'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
+
+filetype plugin indent on
+syntax on
+
+command! Breakpoint call vimspector#ToggleBreakpoint()
+command! Continue call vimspector#Continue()
+command! StepInto call vimspector#StepInto()
+command! StepOver call vimspector#StepOver()
+command! StepOut call vimspector#StepOut()
+command! Reset call vimspector#Reset()
+
+nnoremap <F5> :Continue<CR>
+nnoremap <F4> :Breakpoint<CR>
+nnoremap <F7> :StepInto<CR>
+nnoremap <F8> :StepOver<CR>
+nnoremap <F6> :StepOut<CR>
+nnoremap <F9> :Reset<CR>
+" ========================================================================
+" автодополнения по нажатию TAB
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+
+inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" ========================================================================
